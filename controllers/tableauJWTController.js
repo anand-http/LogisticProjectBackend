@@ -35,6 +35,8 @@ const scopeArray= ["tableau:views:embed","tableau:metrics:embed"];
 
 
 
+    
+
 
     // Combine header and payload, and create the signature
     const token = jwt.sign(payload, secretKey, { header: customHeader });
