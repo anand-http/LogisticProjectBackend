@@ -17,8 +17,28 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
+    },    
+    lastLoginDate: {
+        type: Date,
+        required: false,
+        default: null
     },
-    refreshToken: String
+    firstLoginDate: {
+        type: Date,
+        required: false,
+        default: null
+    },
+    creationDate: {
+        type: Date,
+        required: false,
+    },
+    refreshToken: String,
+    EmloyeeActive:{
+        type: Boolean,
+        required: false,
+        default: true
+        
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);
