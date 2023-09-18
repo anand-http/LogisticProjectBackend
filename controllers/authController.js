@@ -1,6 +1,10 @@
 const User = require('../model/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const {returnTableauJWT} = require('./tableauJWTcontroller2')
+
+
+
 
 
 const handleLogin = async (req, res) => {
@@ -40,12 +44,15 @@ const handleLogin = async (req, res) => {
         const result = await foundUser.save();
         console.log(result);
         console.log(roles);
+        const tableauJWT = returnTableauJWT();
+        console.log('tableau JWT:'+tableauJWT);
 
         // Creates Secure Cookie with refresh token
         res.cookie('jwt', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
         // Send authorization roles and access token to user
-        res.json({ roles, accessToken });
+        res.json({ roles, accessToken, tableauJWT });
+        
 
     } else {
         res.sendStatus(401);
