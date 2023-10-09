@@ -6,6 +6,12 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    email:{
+        type: String
+    },
+    region:{
+        type:String
+    },
     roles: {
         User: {
             type: Number,

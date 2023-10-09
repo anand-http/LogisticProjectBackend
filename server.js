@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 const credentials = require('./middleware/credentials');
 const mongoose = require('mongoose');
 const connectDB = require('./config/dbConn');
-const PORT = process.env.PORT || 3500;
+const PORT = process.env.PORT || 3400;
 
 // Connect to MongoDB
 connectDB();
@@ -39,16 +39,24 @@ app.use(cookieParser());
 app.use('/', express.static(path.join(__dirname, '/public')));
 
 // routes
+
 app.use('/', require('./routes/root'));
+
+app.use('/reset-password/:employeeId/:token', require('./routes/reset-password'));
+app.use('/employeeid', require('./routes/forgot-password'));
+
 app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
+app.use('/fetchregion', require('./routes/fetchRegion'));
+
+
 
 app.use(verifyJWT);
 app.use('/employees', require('./routes/api/employees'));
 app.use('/users', require('./routes/api/users'));
-app.use('/tableauJWT',require('./routes/api/tableauJWT'));
+app.use('/tableauJWT', require('./routes/api/tableauJWT'));
 
 app.all('*', (req, res) => {
     res.status(404);
